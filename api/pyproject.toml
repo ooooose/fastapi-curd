@@ -1,24 +1,18 @@
 [tool.poetry]
-name = "api"
+name = "fastapi_todo"
 version = "0.1.0"
 description = ""
-authors = ["ooooose <yuuki.oose1990@gmail.com>"]
+authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = "^0.99.0"
-uvicorn = "^0.22.0"
-gunicorn = "^20.1.0"
-taskipy = "^1.11.0"
-langchain = "^0.0.220"
-openai = "^0.27.8"
+uvicorn = {extras = ["standard"], version = "^0.22.0"}
+sqlalchemy = "^2.0.17"
+aiomysql = "^0.2.0"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.taskipy.tasks]
-start = { cmd = "uvicorn main:app --reload", help = "launch test server" }
-
