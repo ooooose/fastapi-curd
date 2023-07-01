@@ -1,22 +1,13 @@
-FROM python:3.9-slim-buster as builder
+FROM python:3.11-buster
+ENV PYTHONUNBUFFERED=1
 
-WORKDIR /opt/app
+WORKDIR /src
 
-RUN pip3 install poetry
-COPY poetry.lock pyproject.toml poetry.toml ./
-RUN poetry install --no-dev
+RUN pip install poetry
 
-FROM python:3.9-slim-buster as runner
-RUN apt-get update \
-    && apt-get install -y libpq5 libxml2 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+COPY pyproject.toml* poetry.lock* ./
 
-RUN useradd -r -s /bin/false uvicornuser
-WORKDIR /opt/app
-COPY --from=builder /opt/app/.venv /opt/app/.venv
-COPY example_server ./example_server
-USER uvicornuser
+RUN poetry config virtualenvs.in-project true
+RUN if [ -f pyproject.toml ]; then poetry install --no-root; fi
 
-EXPOSE 8000
-CMD ["/opt/app/.venv/bin/gunicorn", "-w", "1", "-k", "uvicorn.workers.UvicornWorker", "--capture-output", "--log-level", "warning", "--access-logfile", "-", "--bind", ":8000", "example_server.main:app"]
+ENTRYPOINT ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--reload"]
