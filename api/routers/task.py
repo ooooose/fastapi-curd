@@ -20,6 +20,9 @@ async def create_task(
     ):
     return await task_handler.create_task(db, task_body)
 
+@router.get("/tasks/{task_id}", response_model=task_schema.Task)
+async def get_task_with_done(task_id: int, db: AsyncSession = Depends(get_db)):
+    return await task_handler.get_task(db, task_id = task_id) 
 
 @router.put("/tasks/{task_id}", response_model=task_schema.TaskCreateResponse)
 async def update_task(task_id: int, task_body: task_schema.TaskCreate, db: AsyncSession = Depends(get_db)):
