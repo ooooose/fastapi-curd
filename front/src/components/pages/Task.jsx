@@ -7,6 +7,19 @@ import {
   tasksReducer,
 } from '../../reducers/tasks';
 
+import {
+  Text,
+  Box,
+  CircularProgress,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+} from '@chakra-ui/react'
+
 import { REQUEST_STATE } from "../../constants";
 
 const Task = () => {
@@ -24,16 +37,44 @@ const Task = () => {
   }, [])
   return (
     <>
-      {
-        state.fetchState === REQUEST_STATE.LOADING ?
-          <>
-            <p>loading...</p>
-          </>
-        :
-          state.tasksList.map((item, index) =>
-            <p key={index}>{item.title}</p>
-          )
-      }
+      <Box maxH="500px" maxW="960px" mx="auto">
+        <Box p="10px">
+          <Text fontSize='50px' color='blue'>
+            タスク進捗管理表
+          </Text>
+        </Box>
+        <TableContainer>
+          <Table variant='simple'>
+              <Thead>
+                <Tr>
+                  <Th>ID</Th>
+                  <Th>タイトル</Th>
+                  <Th>完了/未完了</Th>
+                </Tr>
+              </Thead>
+              {
+                state.fetchState === REQUEST_STATE.LOADING ?
+                  <>
+                    <Box mx='auto'>
+                      <CircularProgress value={80} />
+                    </Box>
+                  </>
+                :
+                  state.tasksList.map((item, index) =>
+                    <>
+                      <Tbody>
+                        <Tr key={index}>
+                          <Td>{index + 1}</Td>
+                          <Td>{item.title}</Td>
+                          <Td>{item.done === true ? '完了' : '未完了'}</Td>
+                        </Tr>
+                      </Tbody>
+                    </>
+                  )
+                }
+          </Table>
+        </TableContainer>  
+      </Box>
     </>
   )
 }
