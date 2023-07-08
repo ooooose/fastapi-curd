@@ -28,6 +28,19 @@ async def get_tasks_with_done(db: AsyncSession) -> List[Tuple[int, str, bool]]:
     )
     return result.all()
 
+async def get_task_with_done(db: AsyncSession, task_id: int) -> Optional[task_model.Task]: 
+    result: Result = await (
+        db.execute(
+            select(
+                task_model.Task.id,
+                task_model.Task.title,
+                task_model.Done.id.isnot(None).label("done"),
+            ).outerjoin(task_model.Done).filter(task_model.Task.id == task_id)
+        )
+    )
+    task: Optional[Tuple[task_model.Task]] = result.first()
+    return task[0] if task is not None else None
+
 async def get_task(db: AsyncSession, task_id: int) -> Optional[task_model.Task]:
     result: Result = await db.execute(
         select(task_model.Task).filter(task_model.Task.id == task_id)
