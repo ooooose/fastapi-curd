@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 import { fetchTasks } from "../../lib/api/task";
+import { Link } from "react-router-dom";
 
 import {
   initialState,
@@ -10,6 +11,7 @@ import {
 import {
   Text,
   Box,
+  Button,
   CircularProgress,
   Table,
   Thead,
@@ -42,6 +44,11 @@ const Task = () => {
           <Text fontSize='50px' color='blue'>
             タスク進捗管理表
           </Text>
+          <Button colorScheme='teal' variant='solid'>
+            <Link to="/tasks/create">
+              新規作成
+            </Link>
+          </Button>
         </Box>
         <TableContainer>
           <Table variant='simple'>
