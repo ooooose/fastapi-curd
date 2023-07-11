@@ -2,6 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List, Tuple, Optional
 
 from sqlalchemy import select
+from sqlalchemy.orm import joinedload
 from sqlalchemy.engine import Result
 
 import models.task as task_model
@@ -27,6 +28,15 @@ async def get_tasks_with_done(db: AsyncSession) -> List[Tuple[int, str, bool]]:
         )
     )
     return result.all()
+
+async def get_task_with_done(db: AsyncSession, task_id: int) -> Optional[task_model.Task]: 
+    result: Result = await (
+        db.execute(
+            select(task_model.Task).filter(task_model.Task.id == task_id).options(joinedload(task_model.Done))
+        )
+    )
+    task: Optional[Tuple[task_model.Task]] = result.first()
+    return task[0] if task is not None else None
 
 async def get_task(db: AsyncSession, task_id: int) -> Optional[task_model.Task]:
     result: Result = await db.execute(
