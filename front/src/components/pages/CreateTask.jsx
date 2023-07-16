@@ -43,7 +43,7 @@ const CreateTask = () => {
               </Button>
             </Box>
             <Box mr="5px">
-              <Button colorScheme='blue' variant='solid' onClick={submitTask}>
+              <Button colorScheme='blue' variant='solid' onClick={submitTask} isDisabled={task === '' ? true : false} >
                 新規作成
               </Button>
             </Box>
