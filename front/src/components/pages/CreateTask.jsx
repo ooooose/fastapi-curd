@@ -3,11 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { createTask } from "../../lib/api/task";
 import { 
     Button, 
-    Box, 
-    FormControl,
-    FormLabel,
-    Input,
-    FormHelperText } from "@chakra-ui/react";
+    Box } from "@chakra-ui/react";
+import Form from "../atoms/Form";
 
 const CreateTask = () => {
   const [task, setTask] = useState("")
@@ -20,16 +17,11 @@ const CreateTask = () => {
     createTask(data);
     navigate('/tasks');
   }
-
   return (
     <>
       <Box maxH="500px" maxW="960px" mx="auto">
         <Box p="10px" w={500}>
-          <FormControl>
-            <FormLabel>タスク内容</FormLabel>
-              <Input type='text' value={task} onChange={(e) => setTask(e.target.value)} />
-            <FormHelperText>タスクの内容を記載してください</FormHelperText>
-          </FormControl>
+          <Form  task={task} setTask={setTask}/>
           <Box float='right' display='flex'>
             <Box mr='5px'>
               <Button colorScheme='teal' variant='solid'>
