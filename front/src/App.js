@@ -1,19 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import { ChakraProvider } from '@chakra-ui/react'
-import Task from './components/pages/Task';
-import CreateTask from './components/pages/CreateTask';
+
+import AppProvider from './providers/app';
+import AppRoutes from './routes';
 
 function App() {
   return (
-    <ChakraProvider>
-      <Router>
-          <Routes>
-              <Route path="/tasks" element={<Task />} />
-              <Route path="/tasks/create" element={<CreateTask />} />
-          </Routes>
-      </Router>
-    </ChakraProvider>
+    <AppProvider>
+      <AppRoutes />
+    </AppProvider>
   );
 }
 
