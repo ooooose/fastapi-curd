@@ -4,7 +4,6 @@ import { createTask } from "../../lib/api/task";
 import { 
     Button, 
     Box, 
-    Text, 
     FormControl,
     FormLabel,
     Input,
@@ -21,14 +20,11 @@ const CreateTask = () => {
     createTask(data);
     navigate('/tasks');
   }
-  console.log(task)
+
   return (
     <>
       <Box maxH="500px" maxW="960px" mx="auto">
-        <Box p="10px">
-          <Text fontSize='50px' color='blue'>
-            タスク新規作成
-          </Text>
+        <Box p="10px" w={500}>
           <FormControl>
             <FormLabel>タスク内容</FormLabel>
               <Input type='text' value={task} onChange={(e) => setTask(e.target.value)} />
