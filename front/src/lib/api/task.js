@@ -8,3 +8,7 @@ export const fetchTasks = () => {
     })
     .catch((e) => console.error(e))
 }
+
+export const createTask = (data) => {
+    return axios.post(tasksIndex, data)
+}
