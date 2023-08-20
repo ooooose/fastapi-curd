@@ -5,7 +5,6 @@ class ApiClient {
   constructor() {
     this.axios = axiosBase.create({
       baseURL: process.env.REACT_APP_HOST,
-      // baseURL: 'http://localhost:8000',
       headers: {
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
@@ -27,8 +26,8 @@ class ApiClient {
     return await this.axios.put(url, body);
   }
 
-  async apiDelete(url , body = {}) {
-    return await this.axios.delete(url, { data: body });
+  async apiDelete(url, body = {}) {
+    return await this.axios.delete(url, body);
   }
 }
 

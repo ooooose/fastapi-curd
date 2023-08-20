@@ -14,6 +14,7 @@ import {
   Td,
   TableContainer,
 } from '@chakra-ui/react'
+import DeleteButton from "../atoms/DeleteButton";
 
 const Task = () => {
   const { data: tasks } = useGetTasks();
@@ -41,6 +42,7 @@ const Task = () => {
                   <Tr>
                     <Td>{index + 1}</Td>
                     <Td>{item.title}</Td>
+                    <Td><DeleteButton task={item}/></Td>
                   </Tr>
                 </Tbody>
               ))}
