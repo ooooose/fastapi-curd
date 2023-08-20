@@ -2,7 +2,6 @@ import React from "react";
 import { useGetTasks } from "../../stores/useTasks/useGetTasks";
 import { Link } from "react-router-dom";
 import Loading from "../atoms/Loading";
-
 import {
   Box,
   Button,
@@ -17,7 +16,7 @@ import {
 import DeleteButton from "../atoms/DeleteButton";
 
 const Task = () => {
-  const { data: tasks } = useGetTasks();
+  const { data: tasks, mutate } = useGetTasks();
   if (!tasks) return <Loading />
 
   return (
@@ -42,7 +41,7 @@ const Task = () => {
                   <Tr>
                     <Td>{index + 1}</Td>
                     <Td>{item.title}</Td>
-                    <Td><DeleteButton task={item}/></Td>
+                    <Td><DeleteButton task={item} mutate={mutate} /></Td>
                   </Tr>
                 </Tbody>
               ))}
