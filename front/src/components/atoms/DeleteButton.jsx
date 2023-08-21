@@ -1,15 +1,19 @@
 import React from "react";
 import { Center, IconButton } from "@chakra-ui/react";
-import { useDeleteTask } from "../../stores/useTasks/useDeleteTask";
 import { CheckIcon } from "@chakra-ui/icons";
+import { useSWRConfig } from "swr";
+import { apiClient } from "../../utils/api-client";
 
-const DeleteButton = ({task, mutate}) => {
-  const { trigger } = useDeleteTask(task.id);
+const deleteTask = async (id) => {
+  await apiClient.apiDelete(`/tasks/${id}`)
+}
+
+const DeleteButton = ({task}) => {
+  const { mutate } = useSWRConfig();
   const handleDeleteTask = async () => {
     try {
-      trigger();
-      mutate();
-      console.log(mutate)
+      await deleteTask(task.id)
+      mutate('/tasks');
     } catch(err) {
       console.log(err);
     }
