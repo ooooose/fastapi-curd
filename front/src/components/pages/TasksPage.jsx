@@ -16,7 +16,7 @@ import {
 import DeleteButton from "../atoms/DeleteButton";
 
 const Task = () => {
-  const { data: tasks, mutate } = useGetTasks();
+  const { data: tasks } = useGetTasks();
   if (!tasks) return <Loading />
 
   return (
@@ -41,7 +41,7 @@ const Task = () => {
                   <Tr>
                     <Td>{index + 1}</Td>
                     <Td>{item.title}</Td>
-                    <Td><DeleteButton task={item} mutate={mutate} /></Td>
+                    <Td><DeleteButton task={item} /></Td>
                   </Tr>
                 </Tbody>
               ))}
