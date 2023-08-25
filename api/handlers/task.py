@@ -19,13 +19,13 @@ async def create_task(
     return task
 
 
-async def get_tasks(db: AsyncSession) -> List[Tuple[int, str, bool]]:
+async def get_tasks(db: AsyncSession) -> List[Tuple[int, str]]:
     result: Result = await (
         db.execute(
             select(
                 task_model.Task.id,
                 task_model.Task.title,
-            ).outerjoin(task_model.Done)
+            )
         )
     )
     return result.all()
@@ -35,7 +35,8 @@ async def get_task(db: AsyncSession, task_id: int) -> Optional[task_model.Task]:
     result: Result = await db.execute(
         select(task_model.Task).where(task_model.Task.id == task_id)
     )
-    return task.scalar()
+    task: Optional[Tuple[task_model.Task]] = result.first()
+    return task[0] if task is not None else None
 
 async def update_task(
         db: AsyncSession, task_create: task_schema.TaskCreate, original: task_model.Task

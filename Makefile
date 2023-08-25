@@ -8,7 +8,7 @@ down:
 	docker-compose down
 
 logs:
-	docker-compose logs api
+	docker-compose logs -f api
 
 ps:
 	docker-compose ps
