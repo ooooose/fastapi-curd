@@ -19,34 +19,24 @@ async def create_task(
     return task
 
 
-async def get_tasks_with_done(db: AsyncSession) -> List[Tuple[int, str, bool]]:
+async def get_tasks(db: AsyncSession) -> List[Tuple[int, str]]:
     result: Result = await (
         db.execute(
             select(
                 task_model.Task.id,
                 task_model.Task.title,
-                task_model.Done.id.isnot(None).label("done"),
-            ).outerjoin(task_model.Done)
+            )
         )
     )
     return result.all()
 
 
-async def get_task_with_done(db: AsyncSession, task_id: int) -> Optional[task_model.Task]:
-    result: Result = await db.execute(
-        select(task_model.Task).filter(task_model.Task.id == task_id).options(joinedload(task_model.Task.done))
-    )
-    task: Optional[Tuple[task_model.Task]] = result.first()
-    return task[0] if task is not None else None
-
-
 async def get_task(db: AsyncSession, task_id: int) -> Optional[task_model.Task]:
     result: Result = await db.execute(
-        select(task_model.Task).filter(task_model.Task.id == task_id)
+        select(task_model.Task).where(task_model.Task.id == task_id)
     )
     task: Optional[Tuple[task_model.Task]] = result.first()
     return task[0] if task is not None else None
-
 
 async def update_task(
         db: AsyncSession, task_create: task_schema.TaskCreate, original: task_model.Task
@@ -56,7 +46,6 @@ async def update_task(
     await db.commit()
     await db.refresh(original)
     return original
-
 
 async def delete_task(db: AsyncSession, original: task_model.Task) -> None:
     await db.delete(original)

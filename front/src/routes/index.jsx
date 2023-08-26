@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import TasksPage from '../components/pages/TasksPage';
-import CreateTask from '../components/pages/CreateTask';
 import TopPage from '../components/pages/TopPage';
 
 const AppRoutes = () => {
@@ -17,7 +16,6 @@ const AppRoutes = () => {
     <Routes>
       <Route path='/' element={<TopPage />} />
       <Route path="/tasks" element={<TasksPage />} />
-      <Route path="/tasks/create" element={<CreateTask />} />
     </Routes>
   );
 };

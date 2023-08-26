@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import task, done
+from routers import task
 
 app = FastAPI()
 
@@ -21,4 +21,3 @@ def Hello():
     return {"Hello": "hello world!"}
 
 app.include_router(task.router)
-app.include_router(done.router)
