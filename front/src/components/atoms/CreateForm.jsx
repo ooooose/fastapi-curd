@@ -13,10 +13,9 @@ const CreateForm = () => {
   const body = {
     title: task,
   }
-  const { data, trigger, isMutating } = usePostTask(body);
-  const submitTask = async () => {
+  const {trigger, isMutating } = usePostTask(body);
+  const submitTask = () => {
     trigger();
-    console.log(data);
     setTask('');
   }
   const handleKeyDown = (e) => {
