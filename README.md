@@ -1,8 +1,8 @@
 # fastapi-curd
-FastAPIとReact(js)を使用して作成したTask管理アプリです。
+FastAPIとReact(js)を使用して作成したTask管理アプリです。<br />
 [![Image from Gyazo](https://i.gyazo.com/d8da25c51ea8f2ddfa85677109b77881.png)](https://gyazo.com/d8da25c51ea8f2ddfa85677109b77881)
 ## 実装した画面（タスク一覧画面）
-登録しているタスクを全て呼び出し画面に表示します。
+登録しているタスクを全て呼び出し画面に表示します。<br />
 [![Image from Gyazo](https://i.gyazo.com/de2e3fefd75e931339e709a95df44e24.png)](https://gyazo.com/de2e3fefd75e931339e709a95df44e24)
 
 ## 主な機能
