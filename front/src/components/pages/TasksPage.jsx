@@ -12,14 +12,12 @@ import {
   TableContainer,
   Text,
   Center,
-  useDisclosure
 } from '@chakra-ui/react'
 import DeleteButton from "../atoms/DeleteButton";
 import CreateForm from "../atoms/CreateForm";
 import ShowModal from "../atoms/ShowModal";
 
 const Task = () => {
-  const { onOpen } = useDisclosure();
   const { data: tasks } = useGetTasks();
   if (!tasks) return <Loading />
 
